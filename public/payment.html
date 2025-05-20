@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        /* 复用首页基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #000 url('assets/images/wood-texture.jpg') repeat; }
+        .navbar { background-color: rgba(0,0,0,0.8); padding: 16px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(255,255,255,0.1); }
+        .navbar-logo { height: 40px; width: auto; max-width: 200px; }
+        .navbar-menu { display: flex; gap: 32px; }
+        .navbar-menu a { color: white; text-decoration: none; font-size: 24px; font-weight: 400; }
+
+        @media (max-width: 767px) {
+            .navbar-menu a { font-size: 15px; white-space: nowrap; }
+        }
+
+        /* 支付主容器 */
+        .payment-container { padding: 24px 5%; max-width: 800px; margin: 0 auto; }
+        .payment-card { background: white; border-radius: 8px; padding: 32px; }
+        .payment-title { font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 24px; }
+
+        /* 订单信息 */
+        .order-info { margin-bottom: 24px; }
+        .order-item { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .order-label { color: #666666; font-size: 16px; }
+        .order-value { color: #1A1A1A; font-size: 18px; font-weight: 600; }
+
+        /* 二维码区域 */
+        .qrcode-container { margin-bottom: 24px; }
+        .method-title { font-size: 20px; font-weight: 600; color: #1A1A1A; margin-bottom: 16px; }
+        .qrcode-image { width: 100%; max-width: 300px; margin: 16px auto; display: block; border: 1px solid #E5E7EB; border-radius: 4px; }
+        .save-qrcode-btn { width: 100%; padding: 16px; background: #0B1E58; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 16px; }
+        .save-qrcode-btn:hover { background: #081640; }
+
+        /* Line浮窗样式 */
+        .line-float {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+        .line-float:hover {
+            opacity: 0.8;
+        }
+        .line-icon {
+            width: 100px;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <img src="assets/images/logo/logo.png" alt="品牌logo" class="navbar-logo">
+        <div class="navbar-menu">
+            <a href="index.html">Home</a>
+            <a href="category.html">Products</a>
+            <a href="contact.html">Service</a>
+        </div>
+    </nav>
+
+    <!-- Line浮窗 -->
+    <a href="https://line.me/your-specific-link" class="line-float" target="_blank">
+        <img src="assets/images/logo/line-icon.svg" alt="Line联系" class="line-icon">
+    </a>
+
+    <!-- 支付主内容 -->
+    <div class="payment-container">
+        <div class="payment-card">
+            <h2 class="payment-title">Confirm Payment</h2>
+
+            <div class="order-info">
+                <div class="order-item">
+                    <span class="order-label">Product Name</span>
+                    <span class="order-value" id="productName">Loading...</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-label">Payment Amount</span>
+                    <span class="order-value" id="productPrice">加载中...</span>
+                </div>
+            </div>
+
+            <div class="qrcode-container">
+                <h3 class="method-title">Bank Collection QR Code</h3>
+                <img src="assets/images/qrcode/bank-qrcode.png" alt="银行收款二维码" class="qrcode-image">
+                <button class="save-qrcode-btn" id="saveQrcode">Save to Album</button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        // 解析URL中的商品ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        // 模拟商品数据（与detail.html保持一致）
+        const mockProducts = {
+            1: {
+                name: 'Product 1 Name',
+                currentPrice: '¥299'
+            },
+            2: {
+                name: 'Product 2 Name',
+                currentPrice: '¥399'
+            },
+            3: {
+                name: 'Product 3 Name',
+                currentPrice: '¥199'
+            }
+        };
+
+        // 根据ID获取商品数据
+        const productData = mockProducts[productId];
+
+        // 渲染订单信息
+        if (productData) {
+            document.getElementById('productName').textContent = productData.name;
+            document.getElementById('productPrice').textContent = productData.currentPrice;
+        } else {
+            alert('未找到订单信息');
+            window.history.back();
+        }
+
+        // 确认支付点击事件
+        document.getElementById('confirmPay').addEventListener('click', () => {
+            alert('支付成功！');
+            window.location.href = 'index.html';
+        });
+
+        // 保存二维码点击事件
+        document.getElementById('saveQrcode').addEventListener('click', async () => {
+            // 获取二维码图片元素
+            const qrcodeImg = document.querySelector('.qrcode-image');
+            if (!qrcodeImg) return;
+
+            // 创建Canvas用于图片处理
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = qrcodeImg.naturalWidth;
+            canvas.height = qrcodeImg.naturalHeight;
+
+            // 绘制图片到Canvas
+            ctx.drawImage(qrcodeImg, 0, 0, canvas.width, canvas.height);
+
+            // 将Canvas内容转换为Blob
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            if (!blob) {
+                alert('二维码保存失败，请重试');
+                return;
+            }
+
+            // 创建下载链接并触发下载
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = `payment-qrcode-${Date.now()}.png`;
+            downloadLink.click();
+
+            // 清理内存（延迟执行以确保下载完成）
+            setTimeout(() => {
+                URL.revokeObjectURL(downloadLink.href);
+                alert('二维码已成功保存到相册！');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
