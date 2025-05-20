@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details Page</title>
+    <style>
+        /* 复用首页基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #000 url('assets/images/wood-texture.jpg') repeat; /* 黑色底色+木纹质感 */ }
+        .navbar { background-color: rgba(0,0,0,0.8); /* 半透明黑色导航栏 */ padding: 16px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(255,255,255,0.1); /* 添加浅色阴影增强层次感 */ }
+        .navbar-logo { height: 40px; width: auto; max-width: 200px; }
+        .navbar-menu { display: flex; gap: 32px; }
+        .navbar-menu a { color: white; text-decoration: none; font-size: 24px; font-weight: 400; }
+
+        @media (max-width: 767px) {
+            .navbar-menu a { font-size: 15px; white-space: nowrap; }
+        }
+
+        /* 详情页主容器 */
+        .detail-container { padding: 24px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        @media (max-width: 1023px) { .detail-container { grid-template-columns: 1fr; padding: 16px 3%; } }
+        @media (max-width: 480px) { .detail-container { padding: 12px 2%; gap: 24px; } }
+
+        /* 多图轮播区 */
+        .image-gallery { background: white; border-radius: 8px; padding: 16px; }
+        .main-image { width: 100%; height: 60vh; background: #E5E7EB; margin-bottom: 16px; object-fit: contain; }
+        @media (max-width: 1023px) { .main-image { height: 50vh; } }
+        @media (max-width: 767px) { .main-image { height: 40vh; } }
+        @media (max-width: 480px) { .main-image { height: 35vh; } }
+        .thumbnail-container { display: flex; gap: 16px; overflow-x: auto; }
+        .thumbnail { width: 80px; height: 80px; background: #E5E7EB; border-radius: 4px; cursor: pointer; flex-shrink: 0; }
+        @media (max-width: 767px) { .thumbnail { width: 60px; height: 60px; } }
+        @media (max-width: 480px) { .thumbnail { width: 50px; height: 50px; } }
+
+        /* 商品信息区 */
+        .product-info { background: white; border-radius: 8px; padding: 16px; }
+        .product-title { font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 12px; }
+        @media (max-width: 767px) { .product-title { font-size: 20px; } }
+        @media (max-width: 480px) { .product-title { font-size: 18px; } }
+        .product-price { margin: 16px 0; }
+        .detail-current-price { font-size: 28px; font-weight: 700; color: #FF4747; margin-right: 12px; }
+        .detail-original-price { font-size: 24px; font-weight: 400; color: #666666; text-decoration: line-through; }
+        .product-rating { font-size: 24px; color: #1A1A1A; display: flex; align-items: center; gap: 4px; margin-bottom: 24px; }
+
+        /* 参数表格 */
+        .spec-table { width: 100%; margin-top: 24px; }
+        .spec-table th { text-align: left; width: 30%; padding: 8px 0; color: #666666; font-weight: 400; }
+        .spec-table td { padding: 8px 0; color: #1A1A1A; }
+
+        /* 购买按钮 */
+        .buy-btn { width: 100%; padding: 16px; background: #0B1E58; color: white; border: none; border-radius: 4px; font-size: 24px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .buy-btn:hover { background: #081640; }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <img src="assets/images/logo/logo.png" alt="品牌logo" class="navbar-logo">
+        <div class="navbar-menu">
+        <a href="index.html">Home</a>
+        <a href="category.html">Products</a>
+        <a href="contact.html">Services</a>
+        </div>
+    </nav>
+
+    <!-- 详情页主内容 -->
+    <div class="detail-container">
+        <!-- 多图轮播区 -->
+        <div class="image-gallery">
+            <img alt="商品主图" class="main-image" />
+            <div class="thumbnail-container">
+                <img alt="缩略图1" class="thumbnail" />
+                <img alt="缩略图2" class="thumbnail" />
+                <img alt="缩略图3" class="thumbnail" />
+                <img alt="缩略图4" class="thumbnail" />
+            </div>
+        </div>
+
+        <!-- 商品信息区 -->
+        <div class="product-info">
+            <h1 class="product-title">Product Name</h1>
+            <div class="product-price">
+                <span class="detail-current-price">¥399</span>
+                <span class="detail-original-price">¥599</span>
+            </div>
+            <div class="product-rating">
+                <span class="star-filled">★</span>
+                <span class="star-filled">★</span>
+                <span class="star-filled">★</span>
+                <span class="star-filled">★</span>
+                <span class="star-empty">★</span>
+                
+        <span class="rating-count">(1287 reviews)</span>
+            </div>
+
+            <table class="spec-table">
+                <tr><th>Brand</th><td>Example Brand</td></tr>
+                <tr><th>Model</th><td>XX-2024</td></tr>
+                <tr><th>Color</th><td>Space Gray/Moonlight White</td></tr>
+                <tr><th>Size</th><td>300×200×50mm</td></tr>
+        <tr><th>Material</th><td>Aviation-grade Aluminum Alloy</td></tr>
+        <tr><th>Weight</th><td>500g</td></tr>
+            </table>
+
+            <button class="buy-btn">Buy Now</button>
+
+<script>
+    // 解析URL中的商品ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    // 模拟商品数据（实际应从后端接口获取）
+    const mockProducts = {
+        1: {
+            image: 'assets/images/products/product-1/product-1-main.jpg',
+            name: 'Product 1 Name',
+            currentPrice: '¥299',
+            originalPrice: '¥399',
+            rating: '4.9',
+            brand: 'Brand 1',
+            model: 'XX-2024',
+            color: 'Space Gray/Moonlight White',
+            size: '300×200×50mm',
+            material: 'Aviation-grade Aluminum Alloy',
+            weight: '500g'
+        },
+        2: {
+            image: 'assets/images/products/product-2/product-2-main.jpg',
+            name: 'Product 2 Name',
+            currentPrice: '¥399',
+            originalPrice: '¥499',
+            rating: '4.8',
+            brand: 'Brand 2',
+            model: 'YY-2024',
+            color: 'Starry Blue/Pearl White',
+            size: '280×180×45mm',
+            material: 'Carbon Fiber',
+            weight: '450g'
+        },
+        3: {
+            image: 'assets/images/products/product-3/product-3-main.jpg',
+            name: 'Product 3 Name',
+            currentPrice: '¥199',
+            originalPrice: '¥299',
+            rating: '4.7',
+            brand: 'Brand 3',
+            model: 'ZZ-2024',
+            color: 'Agate Black/Ivory White',
+            size: '320×220×55mm',
+            material: 'Stainless Steel',
+            weight: '600g'
+        }
+    };
+
+    // 根据ID获取商品数据
+    const productData = mockProducts[productId];
+
+    // 渲染商品信息
+    if (productData) {
+        document.querySelector('.product-title').textContent = productData.name;
+        document.querySelector('.detail-current-price').textContent = productData.currentPrice;
+        document.querySelector('.detail-original-price').textContent = productData.originalPrice;
+        document.querySelector('.product-rating span:last-child').textContent = `${productData.rating}/5`;
+        document.querySelector('tr:nth-child(1) td').textContent = productData.brand;
+        document.querySelector('tr:nth-child(2) td').textContent = productData.model;
+        document.querySelector('tr:nth-child(3) td').textContent = productData.color;
+        document.querySelector('tr:nth-child(4) td').textContent = productData.size;
+        document.querySelector('tr:nth-child(5) td').textContent = productData.material;
+        document.querySelector('tr:nth-child(6) td').textContent = productData.weight;
+
+        // 设置主图
+        document.querySelector('.main-image').src = productData.image;
+
+        // 设置缩略图
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        thumbnails.forEach((thumb, index) => {
+            thumb.src = `assets/images/products/product-${productId}/product-${productId}-${index === 0 ? 'main' : index}.jpg`;
+            // 点击缩略图切换主图
+            thumb.addEventListener('click', () => {
+                document.querySelector('.main-image').src = thumb.src;
+            });
+        });
+    } else {
+        alert('未找到该商品');
+        window.history.back();
+    }
+
+    // 立即购买按钮点击事件（传递商品ID到支付页面）
+    document.querySelector('.buy-btn').addEventListener('click', () => {
+        window.location.href = `payment.html?id=${productId}`;
+    });
+</script>
+        </div>
+    </div>
+</body>
+</html>

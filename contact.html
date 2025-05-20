@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        /* 复用首页/商品页基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #000 url('assets/images/wood-texture.jpg') repeat; /* 黑色底色+木纹质感 */ }
+        .navbar { background-color: rgba(0,0,0,0.8); padding: 16px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(255,255,255,0.1); /* 与首页/商品页统一的半透明黑色背景+浅色阴影 */ }
+        .navbar-logo { height: 40px; width: auto; max-width: 200px; }
+        .navbar-menu { display: flex; gap: 32px; }
+        .navbar-menu a { color: white; text-decoration: none; font-size: 24px; font-weight: 400; }
+
+        @media (max-width: 767px) {
+            .navbar-menu a { font-size: 15px; white-space: nowrap; }
+        }
+
+        /* 内容容器 */
+        .contact-container { padding: 24px 5%; max-width: 1200px; margin: 0 auto; }
+
+        /* 品牌故事风格媒体块 */
+        .brand-media-grid { margin: 24px 0; }
+        .brand-media-grid .section-title { color: white; font-size: 28px; font-weight: 700; margin-bottom: 24px; padding: 0 5%; text-shadow: 0 2px 4px rgba(45,104,255,0.2); }
+        .media-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 0 5%; }
+        @media (max-width: 767px) { .media-container { grid-template-columns: 1fr; } }
+
+        /* 通用媒体块样式 */
+        .media-item { 
+            background: linear-gradient(135deg, #2D2D2D 0%, #3A3A3A 100%); 
+            border: 1px solid #4A4A4A; 
+            border-radius: 8px; 
+            padding: 24px; 
+            color: #D8D8D8; 
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s; 
+            margin: 0 auto; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            min-height: 343px; 
+            min-width: 300px; /* 统一最小宽度 */
+            height: 100%; 
+        }
+        .media-content { 
+            font-size: 19px; 
+            line-height: 2.1; 
+            padding: 8px 0; /* 增加内边距保持空间 */
+        }
+        @media (max-width: 1023px) { .media-item { max-width: 300px; min-height: 288px; min-width: unset; } }
+        @media (max-width: 767px) { .media-item { max-width: 322px; min-height: 240px; padding: 16px; min-width: 322px; } .media-title { font-size: 18px; } .media-content { font-size: 17px; padding: 4px 0; } }
+
+        /* 移动端适配 */
+        @media (max-width: 767px) {
+            .contact-container { padding: 16px 3%; }
+            .section-title { font-size: 18px; }
+            .notice-list li, .contact-info { font-size: 14px; }
+        }
+
+        /* Line浮窗样式 */
+        .line-float {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+        .line-float:hover {
+            opacity: 0.8;
+        }
+        .line-icon {
+            width: 100px;
+            height: auto;
+        }
+        @media (max-width: 767px) {
+            .line-float {
+                right: 10px;
+            }
+            .line-icon {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <img src="assets/images/logo/logo.png" alt="品牌logo" class="navbar-logo">
+        <div class="navbar-menu">
+        <a href="index.html">Home</a>
+        <a href="category.html">Products</a>
+        <a href="contact.html">Services</a>
+        </div>
+    </nav>
+
+    <!-- 品牌故事风格媒体块 -->
+    <!-- 品牌故事风格媒体块 -->
+    <div class="contact-container">
+        <div class="brand-media-grid">
+            <h2 class="section-title">Service Guide</h2>
+            <div class="media-container">
+                <div class="media-item">
+                    <h3 class="media-title">Notes</h3>
+                    <div class="media-content">
+                        <ol>
+                            <li>Transaction Process - Selection: Browse products, select desired items and add to cart.</li>
+                            <li>Transaction Process - Checkout: Confirm product details, select payment method and complete payment.</li>
+                            <li>Service Process - After-Sales: If there's an issue with the received goods, contact customer service promptly for return or exchange.</li>
+                            <li>Service Process - Inquiries: For shopping questions, contact customer service through available channels at any time.</li>
+                            <li>General Note: Protect personal information, avoid trusting unofficial information to prevent fraud.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="media-item">
+                    <h3 class="media-title">Contact Information</h3>
+                    <div class="media-content">
+                        <div class="contact-item">
+                            <p class="contact-type">Store Owner Contact:</p>
+                            <p class="contact-info">@line1234, Phone: 123456789</p>
+                        </div>
+                        <div class="contact-item">
+                            <p class="contact-type">Customer Service Contact:</p>
+                            <p class="contact-info">@line5677, Phone: 987654321</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Line浮窗 -->
+    <a href="https://line.me/your-specific-link" class="line-float" target="_blank">
+        <img src="assets/images/logo/line-icon.svg" alt="Line联系" class="line-icon">
+    </a>
+    </body>
+</html>
